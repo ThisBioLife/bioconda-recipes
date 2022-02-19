@@ -1,0 +1,43 @@
+{% set name = "magus-msa" %}
+{% set version = "0.1.0b0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: 1278d760bb7bc31f4b8dd6d22e482bea7ce2be29da5818cc29ff29f02d046c1a
+
+build:
+  number: 0
+  entry_points:
+    - magus=magus:main
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  host:
+    - dendropy >=4.5.2
+    - pip
+    - python
+  run:
+    - dendropy >=4.5.2
+    - python
+    - bioconda::fasttree >=2.1.11
+    - bioconda::mafft >=7.490
+    - bioconda::hmmer >=3.3.2
+    - bioconda::mcl >=14.137
+
+test:
+  commands:
+    - magus --help
+
+about:
+  home: "https://github.com/vlasmirnov/MAGUS"
+  license: MIT
+  license_family: MIT
+  summary: "Multiple Sequence Alignment using Graph Clustering"
+
+extra:
+  recipe-maintainers:
+    - RuneBlaze
